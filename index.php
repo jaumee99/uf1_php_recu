@@ -37,7 +37,7 @@
                     <?php
                      // TODO: Proveïr imatge capcha aleatòria
                     ?>
-                    <img src="./captcha/2b827.png">
+                    <img src="captcha/2b827.png">
                 </div>
             </div>
         </div>
