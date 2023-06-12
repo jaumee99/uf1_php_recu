@@ -21,12 +21,45 @@
         </form>
     </div>
     <div class="form-container sign-in-container">
-        <form action="process.php" method="post">
+        <form action="process.php" method="post" id="captcha" name="captcha">
             <h1>Ets humà?</h1>
             <br>
             <span>Introdueix els caràcters presents a la imatge</span>
-            <input type="text" placeholder="Caràcters" />
-            <button>Continua</button>
+            <input type="text" placeholder="Caràcters" name="Caracters" />
+            <button type="submit" name="continua" 
+            <?php
+            //disable button
+            $_POST['count'] = 0;
+            if (isset($_POST['count']) && $_POST['count'] > 10)
+                { ?> disabled <?php   } ?>
+            >Continua</button>
+            <p>Has aconseguit accedir al 
+                <?php 
+                if (isset($_POST['count']) === 1){
+                    echo "1r";
+                } elseif (isset($_POST['count']) === 2){
+                    echo "2n";
+                } elseif (isset($_POST['count']) === 3){
+                    echo "3r";
+                } elseif (isset($_POST['count']) === 4){
+                    echo "4t";
+                } elseif (isset($_POST['count']) === 5){
+                    echo "5è";
+                } elseif (isset($_POST['count']) === 6){
+                    echo "6è";
+                } elseif (isset($_POST['count']) === 7){
+                    echo "7è";
+                } elseif (isset($_POST['count']) === 8){
+                    echo "8è";
+                } elseif (isset($_POST['count']) === 9){
+                    echo "9è";
+                } elseif (isset($_POST['count']) === 10){
+                    echo "10è";
+                } elseif (isset($_POST['count']) > 10){
+                    echo "10è";
+                }
+                ?>
+                 intent</p>
         </form>
     </div>
     <div class="overlay-container">
@@ -35,9 +68,13 @@
                 <div class="capcha-container">
                     <button class="capcha-refresh"><i class="fa fa-refresh"></i></button>
                     <?php
+                    session_start();
                      // TODO: Proveïr imatge capcha aleatòria
+                        $images = glob("captcha/*.png");
+                        $randomImage = $images[array_rand($images)];
+                        $_SESSION['image'] = $randomImage;
                     ?>
-                    <img src="captcha/2b827.png">
+                    <img src="<?php echo $randomImage; ?>" alt="Captcha" class="capcha-image"/>
                 </div>
             </div>
         </div>
